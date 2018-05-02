@@ -44,9 +44,7 @@ int container_generator(){
 }
 
 /*função que gera navios nas filas, pode gerar de 0 a 3 navios, eles serão colocados, um em cada fila*/
-ship* ship_generator(){
-    /*a quantidade será entre 0-3 ou seja % 4*/
-    int amount = rand() % 4;
+ship* ship_generator(int amount){
     /*verifica se a quantidade é igual a zero, e como assim não precisará alocar nada*/
     /*já retorna null*/
     if(amount == 0){
@@ -80,6 +78,8 @@ ship* ship_generator(){
 
 int main(){
     srand(time(NULL)); 
+    int start_time,end_time;
+    int amount;
     printf("Programa de Simulação de Funcionamento Portuário\n");
     time_t timer; //variável que guarda um tempo
     struct tm *ck;  //estrutura que guarda um tempo
@@ -87,29 +87,34 @@ int main(){
     ck = localtime( &timer ); //seta o relogio como a hora local
     printf("Hora de Inicio: %i:%i:%i\n",ck->tm_hour,ck->tm_min,ck->tm_sec);/*mostra na tela a 
     hora, minutos e segundos*/
-    ship* sh = ship_generator();
-    if(sh != NULL){
-        printf("%i\n",sh[0].id);
-        show_stack(sh[0].st[0]);
-        show_stack(sh[0].st[1]);
-        show_stack(sh[0].st[2]);
-        show_stack(sh[0].st[3]);
-    }
-    /*o programa vai rodar até que seja pressionado alguma tecla para finaliza-lo,
-    nisso ele deve ter mostrar informações dos barcos sendo atracados e descarregados*/
-    /*while(!keyboard_pressed()){
-        //serão 4 fors, representando as 4 docas, cada doca executa um navio e passa para a proxima
-        int dock_control;
-    }*/
-    
-    /*int start_time,end_time;
-    start_time = clock();
+    start_time = clock();/*pega o clock inicial para ser usado como um comparador de tempo*/
+    /*loop que irá executar até que alguma tecla seja pressionado, função da lib keyboard.h*/
     while(!keyboard_pressed()){
+        /*agora pega o clock final*/
         end_time = clock();
+        /*e faz a diferença, se for maior ou igual a constante TIMER(2 segundos)*/
         if((end_time - start_time) >= TIMER){
+            /*renova o clock inicial*/
             start_time = clock();
-            printf("%i\n",container_generator());
-        }
-    }*/
+            /*gera um numero aleatorio para criar os barcos*/
+            amount = rand() % 4;
+            /*passa para a função de criação de barcos, ela retornará um vetor de barcos*/
+            ship* sh = NULL;
+            sh = ship_generator(amount);
+            /*verifica se o vetor é diferente de NULL, ou seja tem conteudo*/
+            if(sh != NULL){
+                /**/
+                printf("%i\n",amount);
+                printf("%i\n",sh[0].id);
+                show_stack(sh[0].st[0]);
+                show_stack(sh[0].st[1]);
+                show_stack(sh[0].st[2]);
+                show_stack(sh[0].st[3]);
+            }
+            else{
+                printf("Não Houveram navios nesse período de tempo!\n");
+            }
+        } 
+    }
     return(0);
 }
