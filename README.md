@@ -1,2 +1,1 @@
-# Work_Port_Simulation
-This work is about a port simulation, It's do in c-language.
+This is a work about a port simulation, where it was do in c-language

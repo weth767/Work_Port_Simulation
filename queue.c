@@ -1,5 +1,6 @@
 #include "queue.h"
 #include "bool.h"
+#include "stack.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -7,7 +8,8 @@
 realizando a ponte entre as próprias células. Cada célula guarda um valor inteiro(atualmente, pode haver mudanças conforme
 necessidade futura).*/
 struct CELL{
-    int value;
+    unsigned int id;//identificação de cada barco
+    stack st[4];
     cell next;
     cell previous;
 };
@@ -52,13 +54,16 @@ bool verify_queue_empty(queue q){
     }
 }
 /*função para enfileirar os elementos*/
-void line_up(queue q,int value){
+void line_up(queue q,int value,stack st[]){
     /*cria uma célula para ser inserida na fila*/
     cell c = (cell)malloc(sizeof(struct CELL));
     /*cria uma auxiliar do tipo célula*/
     cell helper;
     /*atribui o valor na célula*/
-    c->value = value;
+    c->id = value;
+    for(int i = 0; i < 4; i++){
+        c->st[i] = st[i];
+    }
     /*se a fila estiver vazia, é a primeira inserção, então não há preocupação com as ligações*/
     /*com o proximo e anterior*/
     if(verify_queue_empty(q)){
@@ -137,34 +142,32 @@ int queue_length(queue q){
 }
 /*função para procurar um elemento na fila*/
 /*retorna o indice dele ou -1 em caso de erro*/
-int search_value_on_queue(queue q,int value){
+cell search_value_on_queue(queue q,int id){
     /*auxiliar do tipo célula para transitar entre as posições da fila*/
     cell helper;
     /*faz com que ele recebe a primeira posição*/
     helper = q->first;
-    /*variavel int para controle do indice da valor, inicia com -1 para supor o erro*/
-    int index = -1;
     /*laço que itera do inicio ao fim da lista*/
     for(int i = 0; i < q->length; i++){
         /*verifica se o valor da posição atual é o mesmo que foi passado por parametro*/
-        if(helper->value == value){
+        if(helper->id == id){
             /*se for, index recebe o i do da iteração*/
-            index = i;
+            return(helper);
         }
         /*pula para proxima célula*/
         helper = helper->next;
     }
     /*retorna o index*/
-    return(index);
+    return(NULL);
 }
 
 /*função para mostrar os elementos presentes na fila*/
 void show_queue(queue q){
     cell helper;
     /*verifica se a fila está vazia*/
-    if(q->length == 0 && q->first == NULL && q->last == NULL){
+    if(verify_queue_empty(q)){
         /*mostra mensagem de erro em caso verdadeiro*/
-        printf("\nQueue is empty. There is no item!\n");
+        printf("This queue is empty. There is no item!\n");
     }
     /*senão estiver vazia*/
     else{
@@ -173,10 +176,15 @@ void show_queue(queue q){
         /*laço que roda de 0 até o tamanho da fila - 1*/
         for(int i = 0; i < q->length; i++){
             /*mostra o elemento*/
-            printf("%i ",helper->value);
+            printf("Navio: %i\n",helper->id);
+            for(int j = 0; j < 4; j++){
+                printf("Pilha: %i: ",j);
+                show_stack(helper->st[j]);
+                printf("\n");
+            }
             /*depois vai para seu próximo*/
             helper = helper->next;
         }
-        printf("\n");
+        printf("\n\n");
     }
 }

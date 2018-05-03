@@ -2,6 +2,7 @@
 #define QUEUE_H
 /*biblioteca para a simulação do tipo booleano*/
 #include "bool.h"
+#include "stack.h"
 /*ponteiro para a estrutura que representa a fila*/
 typedef struct QUEUE * queue;
 /*ponteiro para a estrutura da célula da fila*/
@@ -23,8 +24,8 @@ void queue_start_empty(queue);
 bool verify_queue_empty(queue);
 
 /*função para enfileirar os elementos na fila, deve obrigatoriamente receber por parametro uma variavel do tipo fila
-e o elemento 'x' que será inserido na fila, não retorna nada ao usuário*/
-void line_up(queue,int value);
+e o elemento 'x' que será inserido na fila e as pilhas, não retorna nada ao usuário*/
+void line_up(queue,int value,stack st[]);
 
 /*função para desenfileirar elementos da fila, deve obrigatoriamente receber por parametro uma variavel do tipo fila*/
 /*retornará como parametro o ponteiro para a célula desenfileirada*/
@@ -38,9 +39,9 @@ void drop_queue(queue);
 /*deve obrigatoriamente receber por parametro uma variavel do tipo fila*/
 int queue_length(queue);
 
-/*função para buscar um determinado valor na fila, se encontrar retorna seu indice, senão retorna -1*/
+/*função para buscar um determinado valor na fila, procura o id, se encontrar retorna a celula desse id
 /*deve obrigatoriamente receber por parametro uma variavel do tipo fila e o valor int a ser buscado*/
-int search_value_on_queue(queue,int value);
+cell search_value_on_queue(queue,int id);
 
 /*função para mostrar os elementos presentes na fila, deve receber por parametro obrigatoriamente
 uma variavel do tipo fila*/
