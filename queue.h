@@ -3,6 +3,7 @@
 /*biblioteca para a simulação do tipo booleano*/
 #include "bool.h"
 #include "stack.h"
+
 /*ponteiro para a estrutura que representa a fila*/
 typedef struct QUEUE * queue;
 /*ponteiro para a estrutura da célula da fila*/
@@ -41,10 +42,15 @@ int queue_length(queue);
 
 /*função para buscar um determinado valor na fila, procura o id, se encontrar retorna a celula desse id
 /*deve obrigatoriamente receber por parametro uma variavel do tipo fila e o valor int a ser buscado*/
-cell search_value_on_queue(queue,int id);
+cell search_value_on_queue(queue,int);
 
 /*função para mostrar os elementos presentes na fila, deve receber por parametro obrigatoriamente
 uma variavel do tipo fila*/
 void show_queue(queue);
+
+/*função para passar os valores da célula para outras variaveis*/
+int save_on_other_local(cell);
+/*função para retornar um pilha*/
+stack save_on_other_stack(cell,int index);
 
 #endif

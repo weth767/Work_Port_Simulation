@@ -9,9 +9,9 @@ realizando a ponte entre as próprias células. Cada célula guarda um valor int
 necessidade futura).*/
 struct CELL{
     unsigned int id;//identificação de cada barco
-    stack st[4];
-    cell next;
-    cell previous;
+    stack st[4];//pilha de containers do barco
+    cell next;//proximo
+    cell previous;//anterior
 };
 /*struct QUEUE, estrutura que representa a própria fila, tem ponteiros do tipo célula para seu primeiro e seu ultimo,
 os outros elementos as proprias células cuidam dessa conexão, além de uma variavel do tipo int para guardar seu tamanho*/
@@ -117,6 +117,7 @@ cell misalign(queue q){
         q->length--;
     }
     /*e retorna a célula removida*/
+    printf("%i\n",helper->id);
     return(helper);
 }
 /*função para desmontar a fila*/
@@ -187,4 +188,14 @@ void show_queue(queue q){
         }
         printf("\n\n");
     }
+}
+/*função para salvar valores da célula numa variavel int*/
+int save_on_other_local(cell c){
+    /*return o id da célula*/
+    return(c->id);
+}
+/*função para salvar em outra pilha, os valores pegos pela célula*/
+stack save_on_other_stack(cell c,int index){
+    /*return a pilha de acordo com o index*/
+    return(c->st[index]);
 }

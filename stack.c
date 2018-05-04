@@ -3,18 +3,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/*struct cell, representa a célula da pilha, tem um ponteiro para seu próximo similar e para um anterior,
+/*struct cellule, representa a célula da pilha, tem um ponteiro para seu próximo similar e para um anterior,
 realizando a ponte entre as próprias células. Cada célula guarda um valor inteiro(atualmente, pode haver mudanças conforme
 necessidade futura).*/
-struct CELL{
+struct CELLULE{
     int value;
-    cell next;
-    cell previous;
+    cellule next;
+    cellule previous;
 };
 /*struct stack, é a própria pilha, tem ponteiros dos tipo célula para guardar o prímeiro e o ultimo, sendo que o resto
 , as próprias células cuidam. Além disso tem um váriavel int, para guardar seu tamanho*/
 struct STACK{
-    cell top;
+    cellule top;
     int length;
 };
 /*Agora abaixo as funções referentes a pilha*/
@@ -49,9 +49,9 @@ bool verify_stack_empty(stack st){
 /*função para empilhar itens na pilha, no parametro, está a pilha, e o elemento a ser empilhado*/
 void stack_up(stack st,int value){
     /*cria uma célula para ser colocada na pilha*/
-    cell c = (cell)malloc(sizeof(struct CELL));
+    cellule c = (cellule)malloc(sizeof(struct CELLULE));
     /*cria uma auxiliar do tipo célula*/
-    cell helper;
+    cellule helper;
     /*atribui o valor na célula*/
     c->value = value;
     /*se a pilha estiver vazia, quer dizer que é o primeiro elemento a ser empilhando
@@ -76,8 +76,8 @@ void stack_up(stack st,int value){
     st->length++;
 }
 /*função para desempilhar itens da pilha, passando apenas a pilha como parametro*/
-cell unstack(stack st){
-    cell helper = NULL;
+cellule unstack(stack st){
+    cellule helper = NULL;
     /*verifica inicialmente se a pilha não está vazia, para poder desempilhar*/
     if(!verify_stack_empty(st)){
         /*guarda o valor do topo atual*/
@@ -103,7 +103,7 @@ void drop_stack(stack st){
     /*um contador, que vai incrementar para comparar com a quantidade de elementos na pilha*/
     int count = 0;
     /*um auxiliar que vai guardar a célula para desaloca-la da memória*/
-    cell helper;
+    cellule helper;
     /*um laço enquanto que vai rodar até que o count seja igual ao tamanho da pilha*/
     while(count != st->length){
         /*o helper guarda o ponteiro da célula*/
@@ -130,7 +130,7 @@ int search_value_on_stack(stack st,int value){
     /*e outra para fazer o controle do indice*/
     int control = (st->length - 1);
     /*e um auxiliar para acessar os valores*/
-    cell helper = st->top;
+    cellule helper = st->top;
     /*um laço que irá executar até que o count seja igual ao tamanho da pilha*/
     while(count != st->length){
         /*se o valor no auxiliar for igual ao passado pelo parametro*/
@@ -161,7 +161,7 @@ void show_stack(stack st){
         /*um array para guardar os dados, de forma que fiquem em ordem*/
         int help_array[st->length];
         /*auxiliar para guardar as células que já foram */
-        cell helper = st->top;
+        cellule helper = st->top;
         /*a variavel count, faz o controle do laço*/
         int count = 0;
         /*já a control faz o posicionamento no array*/
@@ -183,5 +183,20 @@ void show_stack(stack st){
         }
         printf("\n");
     }
-    
+}
+/*função para retornar um valor inteiro da celula para ser utilizado*/
+int return_int_value_of_stack_cell(cellule c){
+    /*retorna o valor int*/
+    return(c->value);
+}
+/*função para retornar um valor inteiro da pilha para ser utilizado*/
+int return_int_value_of_stack(stack st,int index){
+    cellule helper = st->top;
+    int count = 0;
+   do{
+       if(count == index){
+           return(st->top->value);
+       }
+       helper = helper->previous;
+   }while(count != index);
 }

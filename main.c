@@ -1,15 +1,17 @@
 /*minhas bibliotecas*/
-#include "stack.h"
 #include "queue.h"
+#include "stack.h"
 #include "bool.h"
 #include "keyboard.h"
+#include "save.h"
 /*bibliotecas padrões do c*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <time.h>
-#define TIMER 2000000 //2 segundos
+#define TIMER 2000000 //2 segundos 1000000
+#define TIMER_CARRIER 1000000 // 1 Segundo
 
 /*criação da estrutura para o barco*/
 /*deve ser possivel o posicionamento de N barco*/
@@ -19,23 +21,16 @@ typedef struct SHIP{
     stack containers[4];//conteiners que ele carrega, cada pilha deve conter no máximo 4 containers
     /*um total de 16 containers*/
 }ship;
-/*criação da estrutura do guindaste, que pega os containers do navio, e leva para uma área destinada
-cada área de atracamento tem sua própria grua*/
-typedef struct CRANE{
-    unsigned int id;//identificação da grua 0-3 ou 1-4
-    bool status;//status para verificar se a grua está cheia 
-}crane;
 /*criação da estrutura para a travessa, que seria o local onde destina-se os containers deepois de pegos
 pela grua, onde ela pode suportar 5 pilhas de 5 containers cada, assim que estiver cheia, o straddle carrier
 deve vir buscar e esvaziar a travessa*/
 typedef struct DOCK{
     unsigned int id;//identificação de cada área de atracamento, são 4 ao todo, uma para cada área de atracamento
     stack platter[5];//5 pilhas, que devem conter até 5 containers cada
-    bool status;//status da doca, que indica se ela está cheia ou não, estiver o carrier deve esvazia-la
+    bool full;//status da doca, que indica se ela está cheia ou não, estiver o carrier deve esvazia-la
 }dock;
-
+/*estrutura do carregador, vai guardar o id do container armazenado no porto*/
 typedef struct CARRIER{
-    unsigned id;
     unsigned id_container;
     bool status;
 }carrier;
@@ -80,12 +75,30 @@ ship* ship_generator(int amount){
     /*e retorna seu ponteiro*/
     return(sh);
 }
-
+/*função principal*/
 int main(){
+    /*variaveis de uso geral na aplicação*/
     srand(time(NULL)); 
     int start_time,end_time;
     int amount;
     int queue_control = 0;
+    int remove_control = 0;
+    int control_platter = 0;
+    int stack_control = 0;
+    int time_control_start,time_control_end;
+    cell helper;
+    cellule h_stack;
+    /**************************************/
+    /*Estruturas para que são usadas na aplicação*/
+    /*áreas de atracamento*/
+    dock d[4];
+    /*carregadores*/
+    carrier car[4];
+    /*filas de atracamento*/
+    queue q[4];
+    /*criando as filas*/
+    /**************************************/
+    /*inicio efetivo da aplicação*/
     printf("Programa de Simulação de Funcionamento Portuário\n");
     time_t timer; //variável que guarda um tempo
     struct tm *ck;  //estrutura que guarda um tempo
@@ -94,15 +107,6 @@ int main(){
     printf("Hora de Inicio: %i:%i:%i\n",ck->tm_hour,ck->tm_min,ck->tm_sec);/*mostra na tela a 
     hora, minutos e segundos*/
     start_time = clock();/*pega o clock inicial para ser usado como um comparador de tempo*/
-    /*áreas de atracamento*/
-    dock d[4];
-    /*carregadores*/
-    carrier car[4];
-    /*guindastes*/
-    crane cr[4];
-    /*filas de atracamento*/
-    queue q[4];
-    /*criando as filas*/
     for(int i = 0; i < 4; i++){
         q[i] = create_queue();
     }
@@ -124,15 +128,11 @@ int main(){
             if(sh != NULL){
                 /*já que houveram navios, distribui em cada fila*/
                 /*variavel para o controle das filas*/
-                
                 /*e um for que itera a quantidade de navios gerados*/
                 for(int i = 0; i < amount; i++){
                     /*enfileira os barcos que chegaram, de acordo o indice controlado 
                     pela variavel int acima*/
                     line_up(q[queue_control],sh[i].id,sh[i].containers);
-                    printf("\n------------------------------------------------------\n");
-                    printf("Fila: %i\n",queue_control);
-                    show_queue(q[queue_control]);
                     /*se o valor dela for dois, soma mais um para fazer a terceira*/
                     /*e pula o restante do laço, para evitar o bug de não inserir
                     navios na fila 3*/
@@ -150,16 +150,89 @@ int main(){
                     queue_control++;
                 }
                 /*no final, mostra as filas e quantos barcos tem*/
-                /*for(int i = 0; i <= 3; i++){
+                for(int i = 0; i <= 3; i++){
+                    printf("\n-------------------------------------------\n");
                     printf("Fila %i\n",i);
                     show_queue(q[i]);
-                }*/
+                }
+               printf("-------------------------------------------\n");
             }
             /*caso não tiver algum barco, mostra mensagem na tela que não houveram barcos nesse momento*/
             else{
                 printf("Não Houveram navios nesse período de tempo!\n");
             }
-
+            /*agora tenho que retirar os navios da fila, atracando eles e usando a grua para retirar os
+            containers do navio*/
+            /*pilha auxiliar para receber a pilha tirada do navio*/
+            stack stack_helper;
+            /*enquanto que irá rodar até que o navio termine de ser atracado*/
+            while(1){
+                /*verifica se a fila dos navios não está vazia*/
+                if(!(verify_queue_empty(q[remove_control]))){
+                    /*recebe a célula que foi removida para pegar o id e as pilhas*/
+                    helper = misalign(q[remove_control]);
+                    /*recebe o id*/
+                    d[remove_control].id = save_on_other_local(helper);
+                    /*insere o navio no arquivo*/
+                    insert_ship_on_file( d[remove_control].id);
+                    /*recebe a pilha pelo indice da variavel de controle de pilhas*/
+                    stack_helper = save_on_other_stack(helper,stack_control);
+                    /*salvar a pilha no arquivo*/
+                    for(int i = 0; i < stack_length(stack_helper); i++){
+                        /*salva os containers dessa pilha no arquivo*/
+                        insert_container_on_file(return_int_value_of_stack(stack_helper,i));
+                    }
+                    /*enquanto que vai executar até que essa pilha esteja vazia*/
+                    while(!(verify_stack_empty(stack_helper))){
+                        /*se a pilha já estiver cheia passa para a proxima,*/
+                        if(stack_length(d[remove_control].platter[control_platter]) == 5){
+                            control_platter++;
+                        }
+                        /*se estiver na ultima pilha e ela estiver cheia, o carrier tem que trabalhar*/
+                        if(control_platter == 4 && stack_length(d[remove_control].platter[control_platter]) == 5){
+                            control_platter = 0;
+                            /*todas as travessas estão cheias*/
+                            d[remove_control].full = true;
+                            /*carrier vai trabalhar aqui, até que ele esvazie, não poderá entrar
+                            mais barcos ou ser descarrado o atual(em caso de ainda não estiver vazio*/
+                            while(d[remove_control].full != false){
+                                /*tempo para execução*/
+                                time_control_start = clock();
+                                /*vai contar 1 segundo*/
+                                while(1){
+                                    /*agora pega o clock final*/
+                                    time_control_end = clock();
+                                    /*e faz a diferença, se for maior ou igual a constante T CARRIER(1 segundo)*/
+                                    if((time_control_end - time_control_start) >= TIMER_CARRIER){
+                                        /*sai do laço*/
+                                        break;
+                                    }
+                                }
+                                /*depois de passado 1 segundo*/
+                                h_stack = unstack(d[remove_control].platter[control_platter]);
+                                /*guardo o id do container*/
+                                car[remove_control].id_container = return_int_value_of_stack_cell(h_stack);
+                                free(h_stack);
+                                /*se essa pilha, estiver vazia, passa para a proxima pilha*/
+                                if(verify_stack_empty(d[remove_control].platter[control_platter])){
+                                    control_platter++;
+                                }
+                                /*se tiver passado pela ultima pilha*/
+                                if(control_platter == 5){
+                                    /*zera o control platter para reutiliza-lo*/
+                                    control_platter = 0;
+                                    /*muda o status do atracamento*/
+                                    d[remove_control].full == false;
+                                    /*sai do laço*/
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                /*incrementa o remove_control, ou seja vai para proxima área de atracamento*/
+                remove_control++;
+            }  
         } 
     }
     return(0);

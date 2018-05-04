@@ -6,7 +6,7 @@
 /*ponteiro de estrutura para permitir a criação de variaveis com o tipo pilha*/
 typedef struct STACK *stack;
 /*ponteiro de estrutura para permitir a criação de variaveis com o tipo celula*/
-typedef struct CELL *cell;
+typedef struct CELLULE *cellule;
 
 /*cabeçalhos das funções da pilha*/
 /*função que retorna a alocação de memória para a pilha, para que ela possa ser trabalhada*/
@@ -30,7 +30,7 @@ void stack_up(stack,int value);
 
 /*função para desempilhar, recebe a pilha e retorna a celula desempilhada*/
 /*deve receber por parametro obrigatoriamente um variavel do tipo pilha*/
-cell unstack(stack);
+cellule unstack(stack);
 
 /*função para desmontar a pilha, ou seja desaloca-la totalmente da memoria*/
 /*deve receber por parametro obrigatoriamente um variavel do tipo pilha*/
@@ -47,5 +47,10 @@ int search_value_on_stack(stack,int value);
 /*função para mostrar os elementos que estão na pilha*/
 /*deve receber por parametro obrigatoriamente um variavel do tipo pilha */
 void show_stack(stack);
+
+/*função para retornar o valor int para ser usado*/
+int return_int_value_of_stack_cell(cellule);
+/*função para retornar o valor int da propria pilha*/
+int return_int_value_of_stack(stack,int);
 
 #endif
