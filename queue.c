@@ -117,7 +117,6 @@ cell misalign(queue q){
         q->length--;
     }
     /*e retorna a célula removida*/
-    printf("%i\n",helper->id);
     return(helper);
 }
 /*função para desmontar a fila*/
@@ -177,16 +176,17 @@ void show_queue(queue q){
         /*laço que roda de 0 até o tamanho da fila - 1*/
         for(int i = 0; i < q->length; i++){
             /*mostra o elemento*/
-            printf("Navio: %i\n",helper->id);
+            printf("--------------------------\n");
+            printf("Navio: %i\n\n",helper->id);
             for(int j = 0; j < 4; j++){
                 printf("Pilha: %i: ",j);
                 show_stack(helper->st[j]);
                 printf("\n");
             }
+            printf("\n");
             /*depois vai para seu próximo*/
             helper = helper->next;
         }
-        printf("\n\n");
     }
 }
 /*função para salvar valores da célula numa variavel int*/
@@ -198,4 +198,31 @@ int save_on_other_local(cell c){
 stack save_on_other_stack(cell c,int index){
     /*return a pilha de acordo com o index*/
     return(c->st[index]);
+}
+
+/*função de montar o relatorio*/
+/*recebe a celula e seu atracamento*/
+void save_cell_on_file(cell c, int dock){
+    FILE *arquivo;
+    /*abre o arquivo de relatorios*/
+    arquivo = fopen("report/report.txt","a+"); 
+    /*verifica se o ponteiro recebeu o arquivo*/
+    if(arquivo != NULL){
+        /*verifica a nulidade de dados no arquivos*/
+        if(feof(arquivo) != 0){
+            /*para escrever o título*/
+            fprintf(arquivo,"Relatório Portuário \n\n");
+        }
+        /*salva os dados normalmente*/
+        fprintf(arquivo,"\nAtracamento: %i / Navio: %i\n",dock,c->id);
+        for(int i = 0; i < 4; i++){
+            fprintf(arquivo,"Pilha %i\n",i);
+            for(int j = 0; j < stack_length(c->st[i]);j++){
+                if(return_int_value_of_stack(c->st[i],j) != -1){
+                    fprintf(arquivo,"Container: %i\n",return_int_value_of_stack(c->st[i],j));
+                }
+            }
+            fprintf(arquivo,"\n");
+        }
+    }
 }

@@ -181,7 +181,6 @@ void show_stack(stack st){
         for(int i = 0; i < st->length; i++){
             printf("%i ",help_array[i]);
         }
-        printf("\n");
     }
 }
 /*função para retornar um valor inteiro da celula para ser utilizado*/
@@ -193,10 +192,17 @@ int return_int_value_of_stack_cell(cellule c){
 int return_int_value_of_stack(stack st,int index){
     cellule helper = st->top;
     int count = 0;
-   do{
-       if(count == index){
-           return(st->top->value);
-       }
-       helper = helper->previous;
-   }while(count != index);
+    if(!(verify_stack_empty(st))){
+        while(helper->previous != NULL){
+            if(count == index){
+                return(helper->value);
+            }
+            else{
+                count++;
+                helper = helper->previous;
+            }
+        }
+    }
+    /*erro*/
+    return(-1);
 }

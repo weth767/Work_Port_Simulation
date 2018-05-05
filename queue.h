@@ -50,7 +50,10 @@ void show_queue(queue);
 
 /*função para passar os valores da célula para outras variaveis*/
 int save_on_other_local(cell);
+
 /*função para retornar um pilha*/
 stack save_on_other_stack(cell,int index);
+
+void save_cell_on_file(cell c,int);
 
 #endif
