@@ -93,7 +93,6 @@ cellule unstack(stack st){
         st->length--;
     }
     /*retorna a célula deslocada da pilha*/
-    printf("helper: %i\n",helper->value);
     return(helper);
     /*essa função exige muito cuidado, pois como ela retorna a alocação da célula, quem a manipula deve usar o valor e depois
     desalocar esse ponteiro, para que não fica espaço solto alocado na memória*/

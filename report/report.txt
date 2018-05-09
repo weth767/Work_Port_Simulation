@@ -1,0 +1,641 @@
+
+Atracamento: 0 / Navio: 961
+Pilha 0
+Container: 933
+
+Pilha 1
+Container: 223
+Container: 832
+
+Pilha 2
+Container: 606
+
+Pilha 3
+Container: 349
+Container: 673
+
+
+Atracamento: 1 / Navio: 867
+Pilha 0
+Container: 296
+
+Pilha 1
+Container: 789
+
+Pilha 2
+Container: 242
+
+Pilha 3
+Container: 449
+Container: 698
+
+
+Atracamento: 2 / Navio: 432
+Pilha 0
+Container: 79
+Container: 486
+
+Pilha 1
+Container: 397
+
+Pilha 2
+Container: 607
+Container: 862
+
+Pilha 3
+Container: 965
+Container: 491
+
+
+Atracamento: 3 / Navio: 956
+Pilha 0
+Container: 967
+
+Pilha 1
+Container: 322
+Container: 717
+Container: 842
+
+Pilha 2
+Container: 344
+
+Pilha 3
+Container: 189
+
+
+Atracamento: 0 / Navio: 933
+Pilha 0
+Container: 498
+Container: 655
+
+Pilha 1
+Container: 962
+
+Pilha 2
+Container: 683
+
+Pilha 3
+
+
+Atracamento: 1 / Navio: 166
+Pilha 0
+Container: 725
+Container: 763
+
+Pilha 1
+Container: 67
+Container: 792
+Container: 398
+
+Pilha 2
+Container: 596
+Container: 101
+
+Pilha 3
+Container: 653
+Container: 695
+Container: 920
+
+
+Atracamento: 2 / Navio: 331
+Pilha 0
+Container: 238
+
+Pilha 1
+Container: 660
+
+Pilha 2
+
+Pilha 3
+Container: 494
+Container: 833
+
+
+Atracamento: 3 / Navio: 116
+Pilha 0
+Container: 256
+
+Pilha 1
+Container: 65
+
+Pilha 2
+Container: 494
+Container: 253
+
+Pilha 3
+Container: 726
+
+
+Atracamento: 0 / Navio: 504
+Pilha 0
+Container: 151
+Container: 767
+Container: 292
+
+Pilha 1
+Container: 930
+
+Pilha 2
+
+Pilha 3
+Container: 727
+
+
+Atracamento: 1 / Navio: 58
+Pilha 0
+Container: 119
+Container: 77
+
+Pilha 1
+
+Pilha 2
+Container: 406
+Container: 866
+
+Pilha 3
+Container: 440
+Container: 301
+
+
+Atracamento: 2 / Navio: 452
+Pilha 0
+Container: 643
+Container: 828
+Container: 308
+
+Pilha 1
+Container: 601
+
+Pilha 2
+
+Pilha 3
+Container: 132
+
+
+Atracamento: 3 / Navio: 19
+Pilha 0
+
+Pilha 1
+Container: 239
+
+Pilha 2
+Container: 377
+
+Pilha 3
+Container: 651
+Container: 803
+
+
+Atracamento: 0 / Navio: 515
+Pilha 0
+Container: 818
+Container: 273
+
+Pilha 1
+
+Pilha 2
+
+Pilha 3
+Container: 392
+
+
+Atracamento: 1 / Navio: 649
+Pilha 0
+
+Pilha 1
+Container: 898
+Container: 592
+
+Pilha 2
+Container: 621
+Container: 955
+Container: 813
+
+Pilha 3
+Container: 62
+Container: 612
+
+
+Atracamento: 2 / Navio: 219
+Pilha 0
+Container: 364
+Container: 414
+
+Pilha 1
+
+Pilha 2
+Container: 694
+Container: 764
+
+Pilha 3
+Container: 597
+Container: 75
+
+
+Atracamento: 3 / Navio: 249
+Pilha 0
+Container: 111
+Container: 155
+
+Pilha 1
+Container: 377
+Container: 367
+Container: 148
+
+Pilha 2
+
+Pilha 3
+Container: 923
+Container: 332
+
+
+Atracamento: 0 / Navio: 117
+Pilha 0
+Container: 898
+
+Pilha 1
+Container: 796
+Container: 406
+
+Pilha 2
+Container: 403
+Container: 650
+Container: 719
+
+Pilha 3
+
+
+Atracamento: 1 / Navio: 43
+Pilha 0
+
+Pilha 1
+Container: 132
+
+Pilha 2
+
+Pilha 3
+Container: 779
+Container: 995
+Container: 706
+
+
+Atracamento: 2 / Navio: 736
+Pilha 0
+Container: 602
+
+Pilha 1
+Container: 409
+Container: 41
+
+Pilha 2
+Container: 566
+
+Pilha 3
+Container: 442
+Container: 949
+Container: 608
+
+
+Atracamento: 0 / Navio: 764
+Pilha 0
+Container: 545
+
+Pilha 1
+
+Pilha 2
+Container: 817
+Container: 925
+
+Pilha 3
+Container: 551
+
+
+Atracamento: 1 / Navio: 533
+Pilha 0
+Container: 878
+Container: 326
+Container: 307
+
+Pilha 1
+Container: 556
+Container: 793
+Container: 133
+
+Pilha 2
+Container: 396
+Container: 476
+
+Pilha 3
+Container: 507
+
+
+Atracamento: 2 / Navio: 27
+Pilha 0
+Container: 444
+
+Pilha 1
+Container: 439
+
+Pilha 2
+
+Pilha 3
+
+
+Atracamento: 3 / Navio: 168
+Pilha 0
+Container: 834
+
+Pilha 1
+Container: 864
+Container: 804
+
+Pilha 2
+Container: 265
+Container: 102
+
+Pilha 3
+
+
+Atracamento: 0 / Navio: 482
+Pilha 0
+Container: 530
+
+Pilha 1
+
+Pilha 2
+Container: 702
+Container: 912
+
+Pilha 3
+
+
+Atracamento: 1 / Navio: 530
+Pilha 0
+Container: 798
+
+Pilha 1
+Container: 482
+Container: 997
+Container: 919
+
+Pilha 2
+Container: 796
+
+Pilha 3
+Container: 390
+
+
+Atracamento: 3 / Navio: 286
+Pilha 0
+Container: 619
+
+Pilha 1
+Container: 811
+
+Pilha 2
+Container: 496
+
+Pilha 3
+
+
+Atracamento: 0 / Navio: 77
+Pilha 0
+Container: 480
+Container: 648
+
+Pilha 1
+Container: 414
+Container: 585
+
+Pilha 2
+Container: 305
+
+Pilha 3
+Container: 746
+
+
+Atracamento: 1 / Navio: 664
+Pilha 0
+Container: 338
+
+Pilha 1
+
+Pilha 2
+Container: 832
+Container: 389
+
+Pilha 3
+
+
+Atracamento: 2 / Navio: 661
+Pilha 0
+Container: 909
+
+Pilha 1
+
+Pilha 2
+Container: 702
+
+Pilha 3
+Container: 814
+Container: 789
+
+
+Atracamento: 3 / Navio: 1
+Pilha 0
+Container: 738
+Container: 76
+
+Pilha 1
+Container: 896
+Container: 881
+
+Pilha 2
+Container: 285
+Container: 772
+Container: 27
+
+Pilha 3
+Container: 527
+Container: 758
+
+
+Atracamento: 0 / Navio: 381
+Pilha 0
+Container: 24
+Container: 773
+Container: 823
+
+Pilha 1
+Container: 743
+Container: 801
+
+Pilha 2
+
+Pilha 3
+Container: 109
+Container: 927
+
+
+Atracamento: 1 / Navio: 59
+Pilha 0
+Container: 174
+
+Pilha 1
+Container: 598
+Container: 469
+
+Pilha 2
+Container: 504
+
+Pilha 3
+Container: 414
+Container: 982
+
+
+Atracamento: 2 / Navio: 771
+Pilha 0
+
+Pilha 1
+Container: 941
+Container: 269
+
+Pilha 2
+
+Pilha 3
+Container: 382
+
+
+Atracamento: 3 / Navio: 425
+Pilha 0
+Container: 469
+Container: 637
+
+Pilha 1
+Container: 728
+Container: 821
+
+Pilha 2
+Container: 937
+Container: 439
+
+Pilha 3
+Container: 885
+
+
+Atracamento: 0 / Navio: 724
+Pilha 0
+Container: 832
+Container: 389
+
+Pilha 1
+
+Pilha 2
+
+Pilha 3
+Container: 298
+
+
+Atracamento: 1 / Navio: 843
+Pilha 0
+Container: 246
+Container: 212
+
+Pilha 1
+Container: 469
+Container: 554
+
+Pilha 2
+Container: 565
+Container: 108
+
+Pilha 3
+Container: 899
+Container: 548
+
+
+Atracamento: 2 / Navio: 169
+Pilha 0
+
+Pilha 1
+Container: 540
+Container: 964
+Container: 989
+
+Pilha 2
+Container: 961
+
+Pilha 3
+Container: 551
+
+
+Atracamento: 3 / Navio: 702
+Pilha 0
+Container: 795
+
+Pilha 1
+
+Pilha 2
+Container: 718
+Container: 45
+Container: 112
+
+Pilha 3
+Container: 700
+
+
+Atracamento: 0 / Navio: 280
+Pilha 0
+Container: 444
+
+Pilha 1
+Container: 893
+
+Pilha 2
+Container: 227
+
+Pilha 3
+
+
+Atracamento: 1 / Navio: 236
+Pilha 0
+
+Pilha 1
+Container: 156
+Container: 384
+
+Pilha 2
+Container: 293
+Container: 405
+
+Pilha 3
+Container: 141
+Container: 481
+Container: 935
+
+
+Atracamento: 2 / Navio: 108
+Pilha 0
+
+Pilha 1
+Container: 937
+
+Pilha 2
+Container: 999
+
+Pilha 3
+Container: 469
+Container: 90
+
+
+Atracamento: 3 / Navio: 658
+Pilha 0
+Container: 667
+Container: 912
+
+Pilha 1
+
+Pilha 2
+
+Pilha 3
+

@@ -52,8 +52,9 @@ void show_queue(queue);
 int save_on_other_local(cell);
 
 /*função para retornar um pilha*/
-stack save_on_other_stack(cell,int index);
+stack save_on_other_stack(cell,int);
 
-void save_cell_on_file(cell c,int);
+/*função para salvar uma celula inteira no arquivo*/
+void save_cell_on_file(cell,int);
 
 #endif

@@ -75,11 +75,12 @@ ship* ship_generator(int amount){
                 total++;
             }
         }
+        /*pega o total de containers*/
         watercraft.amount_containers = total;
-        
+        /*insere o navio no vetor*/
         sh[i] = watercraft;
     }
-    /*e retorna seu ponteiro*/
+    /*e retorna o ponteiro do vetor*/
     return(sh);
 }
 /*função para contar o tempo, entra a quantidade em segundos*/
@@ -96,29 +97,23 @@ void chronometer(int seconds){
         }
     }
 }
-/*função para teste*/
-void teste(){
-    stack t = create_stack();
-    for(int i = 0; i < 3; i++){
-        stack_up(t,i+1);
-    }
-    show_stack(t);
-    printf("\n%i\n",return_int_value_of_stack(t,4));
-}
 
 /*função principal*/
 int main(){
-    /*variaveis de uso geral na aplicação*/
+    /*seta a semente para gerar os números pseudo-aleatorios*/
     srand(time(NULL)); 
+    /*variaveis de uso geral na aplicação*/
     int amount;
     int queue_control = 0;
     int remove_control;
+    int height;
     int stack_ship_control;
     int stack_platter_control;
     int remove_platter_control;
-    int remove_platter_height_control;
     /*células auxiliares*/
     cell helper;
+    cellule help;
+    cellule auxilliary;
     /*pilha auxiliar para receber a pilha tirada do navio*/
     stack stack_helper;
     /**************************************/
@@ -128,6 +123,7 @@ int main(){
     /*criar as pilhas das áreas de atracamento*/
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 5; j++){
+            /*cria as 5 travessas nas 4 áreas de atracamento*/
              d[i].platter[j] = create_stack();
         }
     }
@@ -153,7 +149,7 @@ int main(){
     while(!keyboard_pressed()){
         srand(time(NULL));
         /*gera um numero aleatorio para criar os barcos*/
-        amount = rand() % 4;
+        amount = rand() % 16;
         /*passa para a função de criação de barcos, ela retornará um vetor de barcos*/
         ship* sh = NULL;
         chronometer(2);
@@ -183,19 +179,23 @@ int main(){
                 /*por fim caso não ocorra alguma das condições, soma normalmente o controle*/
                 queue_control++;
             }
-            /*no final, mostra as filas e quantos barcos tem*/
-            for(int i = 0; i <= 3; i++){
-                printf("-------------------------------------------\n");
-                printf("Atracamento: %i\n",i);
-                printf("Fila %i\n\n",i);
-                show_queue(q[i]);
-            }
-            printf("-------------------------------------------\n");
         }
         /*caso não tiver algum barco, mostra mensagem na tela que não houveram barcos nesse momento*/
         else{
             printf("Não Houveram navios nesse período de tempo!\n");
         }
+
+        /*no final, mostra as filas e quantos barcos tem*/
+        for(int i = 0; i <= 3; i++){
+            printf("-------------------------------------------\n");
+            /*mostra o atracamento*/
+            printf("Atracamento: %i\n",i);
+            /*a fila*/
+            printf("Fila %i\n\n",i);
+            /*e os integrantes*/
+            show_queue(q[i]);
+        }
+        printf("-------------------------------------------\n");
         /*agora tenho que retirar os navios da fila, atracando eles e usando a grua para retirar os
         containers do navio*/
         /*enquanto que irá rodar até que o navio termine de ser atracado*/
@@ -210,6 +210,7 @@ int main(){
                 /*começa pelo primeiro atracamento, é necessário coloca-lo na doca*/
                 /*variavel de controle das pilhas do navio sendo zerada*/
                 stack_ship_control = 0;
+                stack_platter_control = 0;
                 while(stack_ship_control != 4){
                     /*o primeiro navio da fila agora vai ser esvaziado*/
                     /*utilizarei uma pilha auxiliar para guardar cada pilha do navio*/
@@ -224,55 +225,57 @@ int main(){
                         então posso aproveita-la para realizar isso*/
                         /*agora vem um laço que itera até o tamanho da pilha salva em stack helper*/
                         /*zera a variavel de controle da pilhas das travessas*/
-                        stack_platter_control = 0;
-                        /**
-                         * DANDO FALHA DE SEGMENTAÇÃO BEM NESSA PARTE
-                         * **/
-                        for(int k = 0; k < stack_length(stack_helper); k++){
+                        height = stack_length(stack_helper);
+                        for(int k = 0; k < height; k++){
                             /*agora para inserir na pilha das travessas, preciso controlar qual pilha estou 
                             acessando e por isso precisarei de uma variavel de controle para as pilhas da
-                            travessa*/
-                            /*além disso preciso verificar se as travessas estão cheias, ou seja tamanho igual a
-                            5*/
-                            if(stack_length(d[remove_control].platter[stack_platter_control]) == 5){
-                                /*incrementa o controle de travessa*/
+                            travessa e pra isso retiro da pilha auxiliar*/
+                            help = unstack(stack_helper);
+                            /*verifica se a pilha da travessa, insere na travessa*/
+                            if(stack_length(d[remove_control].platter[stack_platter_control]) <= 5){
+                                /*empilha em umas das travessasaa*/
+                                stack_up(d[remove_control].platter[stack_platter_control],return_int_value_of_stack_cell(help));
+                            }
+                            /*se a pilha estiver cheia, passa para a proxima travessa*/
+                            else if(stack_length(d[remove_control].platter[stack_platter_control]) > 5){
+                                /*incrementa a variavel de controle da travessa*/
                                 stack_platter_control++;
                             }
-                            printf("%i\n",stack_platter_control);
-                            /*e por fim, se todas as travessas estão cheias, devo desempilha-las com o carrier*/
+                            /*quando já passou por todas as travessas e todas estão cheias*/
                             if(stack_platter_control == 5){
+                                /*zera o controle de travesssas*/
+                                stack_platter_control = 0;
                                 /*aqui começa o desempilhamento do carrier*/
                                 /*como preciso de uma variavel que controle a pilha que o carrier trabalha*/
                                 remove_platter_control = 0;
                                 /*e uma que controle o indice da pilha sendo trabalhado*/
-                                remove_platter_height_control = 0;
                                 /*onde o laço vai executar até esvaziar todas as pilhas do carrier*/
-                                while(remove_platter_control != 5){
-                                    /*verifica se ainda há itens na pilha, senão forem encontrados valores pelo 
-                                    indice passado por parametro, retornará -1, ou seja é hora de passar para proxima pilha
-                                    */
-                                    if(return_int_value_of_stack(d[remove_control].platter[stack_platter_control],remove_platter_height_control) == -1){
+                                while(remove_platter_control < 5){
+                                    /*verifica se a travessa atual está vazia, se estiver*/
+                                    if(verify_stack_empty(d[remove_control].platter[stack_platter_control])){
+                                        /*incrementa o controle de travessa*/
                                         remove_platter_control++;
-                                        remove_platter_height_control = 0;
+                                    }
+                                    /*se não estiver vazia*/
+                                    else{
+                                        /*usa uma variavel de célula auxiliar para retirar da travessa*/
+                                        auxilliary = unstack(d[remove_control].platter[remove_platter_control]);
                                     }
                                     /*como o proprio laço controla se já passou pelas travessas, agora só é colocar a pilha no carrier*/
-                                    car[remove_control].id_container = return_int_value_of_stack(d[remove_control].platter[stack_platter_control],remove_platter_height_control);
+                                    /*verifica se a variavel auxiliar contem algo*/
+                                    if(auxilliary != NULL){
+                                        /*se tiver, coloca no carrier, que vai coloca-la no armazenamento*/
+                                        car[remove_control].id_container = return_int_value_of_stack_cell(auxilliary);
+                                    }
                                     /*tempo de trabalho do carreir*/
                                     chronometer(1);
                                     /*insere o container em uma arquivo de armazenamento de containers*/
                                     insert_container_on_file(car[remove_control].id_container);
                                     /*e ele a armazena-la*/
                                     /*ai incrementa a variavel de controle do indice da pilha das travessas*/
-                                    remove_platter_height_control++;
                                 }
                             }
-                            /*caso já tenha passado por esses condições, ou não precisou ainda passar, insere containers na travessa*/
-                            stack_up(d[remove_control].platter[stack_platter_control],return_int_value_of_stack(stack_helper,k));
-                            /*e incrementa o controle da pilha da travessa, ou seja de qual pilha das travessas está sendo trabalhada*/
                         }
-                        /**
-                         * ATÉ AQUI, ESTÁ DANDO FALHA DE SEGMENTAÇÃO
-                         * **/
                     }/*assim que foir finalizado o processo de desempilhamento ou a pilha estiver vazia*/
                     /*incrementa o variavel de controle de pilhas do navio*/
                     stack_ship_control++;
@@ -283,6 +286,11 @@ int main(){
             /*quando já tiver passado pelas quatro filas, sai do laço e volta a por navios na fila*/
         }
     }
+    /*limpa os ponteiros auxiliares*/
+    free(auxilliary);
+    free(help);
+    free(helper);
+    free(stack_helper);
     /*no fim da aplicação, mostra o relatorio aberto no editor de texto, e mostra os navios que ainda estão na fila*/
     printf("Navios ainda na fila: \n");
     for(int i = 0; i < 4; i++){
@@ -291,6 +299,15 @@ int main(){
         show_queue(q[i]);
     }
     printf("-------------------------------------------\n");
-    //system("gedit report/report.txt");
+    /*desmonta as filas*/
+    for(int i = 0; i < 4; i++){
+        drop_queue(q[i]);
+    }
+    /*mostra a hora que finalizou*/
+    printf("Hora de Finalização: %i:%i:%i\n",ck->tm_hour,ck->tm_min,ck->tm_sec);
+    /*e abre os aqruivos*/
+    system("gedit report/storage.txt");
+    system("gedit report/report.txt");
+    /*e finaliza a aplicação*/
     return(0);
 }

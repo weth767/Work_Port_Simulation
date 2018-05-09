@@ -5,7 +5,8 @@
 #include "keyboard.h"
 #include "bool.h"
 
-bool keyboard_pressed(void){
+/*função para detectar se o teclado foi pressionado*/
+bool keyboard_pressed(){
     struct termios oldt, newt;
     int ch;
     int oldf;

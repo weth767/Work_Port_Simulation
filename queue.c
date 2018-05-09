@@ -1,6 +1,7 @@
 #include "queue.h"
 #include "bool.h"
 #include "stack.h"
+#include "save.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -208,21 +209,25 @@ void save_cell_on_file(cell c, int dock){
     arquivo = fopen("report/report.txt","a+"); 
     /*verifica se o ponteiro recebeu o arquivo*/
     if(arquivo != NULL){
-        /*verifica a nulidade de dados no arquivos*/
-        if(feof(arquivo) != 0){
-            /*para escrever o título*/
-            fprintf(arquivo,"Relatório Portuário \n\n");
-        }
         /*salva os dados normalmente*/
+        /*primeiro o navio e atracamento*/
         fprintf(arquivo,"\nAtracamento: %i / Navio: %i\n",dock,c->id);
+        /*depois entra em um for para inserir as pilhas*/
         for(int i = 0; i < 4; i++){
+            /*insere o número da pilha no arquivo*/
             fprintf(arquivo,"Pilha %i\n",i);
+            /*segundo for para inserir os containers no arquivo*/
             for(int j = 0; j < stack_length(c->st[i]);j++){
+                /*verifica se o valor foi encontrado*/
                 if(return_int_value_of_stack(c->st[i],j) != -1){
+                    /*insere no arquivo o container*/
                     fprintf(arquivo,"Container: %i\n",return_int_value_of_stack(c->st[i],j));
                 }
             }
+            /*insere um pula linha no arquivo*/
             fprintf(arquivo,"\n");
         }
     }
+    /*fecha o arquivo*/
+    fclose(arquivo);
 }
