@@ -3,7 +3,6 @@
 #include "stack.h"
 #include "bool.h"
 #include "keyboard.h"
-#include "save.h"
 /*bibliotecas padrões do c*/
 #include <stdio.h>
 #include <stdlib.h>
@@ -97,7 +96,6 @@ void chronometer(int seconds){
         }
     }
 }
-
 /*função principal*/
 int main(){
     /*seta a semente para gerar os números pseudo-aleatorios*/
@@ -184,7 +182,6 @@ int main(){
         else{
             printf("Não Houveram navios nesse período de tempo!\n");
         }
-
         /*no final, mostra as filas e quantos barcos tem*/
         for(int i = 0; i <= 3; i++){
             printf("-------------------------------------------\n");
@@ -267,18 +264,14 @@ int main(){
                                         /*se tiver, coloca no carrier, que vai coloca-la no armazenamento*/
                                         car[remove_control].id_container = return_int_value_of_stack_cell(auxilliary);
                                     }
-                                    /*tempo de trabalho do carreir*/
-                                    chronometer(1);
-                                    /*insere o container em uma arquivo de armazenamento de containers*/
-                                    insert_container_on_file(car[remove_control].id_container);
-                                    /*e ele a armazena-la*/
-                                    /*ai incrementa a variavel de controle do indice da pilha das travessas*/
                                 }
                             }
                         }
                     }/*assim que foir finalizado o processo de desempilhamento ou a pilha estiver vazia*/
                     /*incrementa o variavel de controle de pilhas do navio*/
                     stack_ship_control++;
+                    /*tempo de trabalho do carreir*/
+                    chronometer(1);
                 }
             }
             /*e se já acabou de desempilhar o navio dessa fila, vai para a proxima*/
@@ -305,8 +298,7 @@ int main(){
     }
     /*mostra a hora que finalizou*/
     printf("Hora de Finalização: %i:%i:%i\n",ck->tm_hour,ck->tm_min,ck->tm_sec);
-    /*e abre os aqruivos*/
-    system("gedit report/storage.txt");
+    /*e abre o arquivo*/
     system("gedit report/report.txt");
     /*e finaliza a aplicação*/
     return(0);
