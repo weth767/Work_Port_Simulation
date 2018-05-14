@@ -9,8 +9,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <time.h>
-#define TIMER 2000000 //2 segundos
-#define TIMER_CARRIER 1000000 // 1 Segundo
+#define TIMER 200000 //200 milisegundos
+#define TIMER_CARRIER 100000 // 100 milisegundos
 
 /*criação da estrutura para o barco*/
 /*deve ser possivel o posicionamento de N barco*/
@@ -90,7 +90,7 @@ void chronometer(int seconds){
     while(1){
         /*atualiza a final ate que o tempo seja maior ou igual ao passado por parametro*/
         end_time = clock();
-        if((end_time - start_time) >= (seconds * 1000000)){
+        if((end_time - start_time) >= (seconds * 100000)){
             /*ai sai da função*/
             break;
         }
@@ -279,11 +279,6 @@ int main(){
             /*quando já tiver passado pelas quatro filas, sai do laço e volta a por navios na fila*/
         }
     }
-    /*limpa os ponteiros auxiliares*/
-    free(auxilliary);
-    free(help);
-    free(helper);
-    free(stack_helper);
     /*no fim da aplicação, mostra o relatorio aberto no editor de texto, e mostra os navios que ainda estão na fila*/
     printf("Navios ainda na fila: \n");
     for(int i = 0; i < 4; i++){
